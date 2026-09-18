@@ -179,13 +179,13 @@ export const Footer = () => {
       </div>
 
       {/* ================= 3. ILLUSTRATION BANNER ================= */}
-      <div className="w-full overflow-hidden leading-none">
+      {/* <div className="w-full overflow-hidden leading-none">
         <img
           src={footerBg}
           alt="Apna School Community"
           className="w-full object-cover object-center"
         />
-      </div>
+      </div> */}
 
       {/* ================= 4. DARK BOTTOM COPYRIGHT BAR ================= */}
       <div className="w-full bg-[#0c1838] px-5 py-5 text-slate-300 sm:px-10 lg:px-14">

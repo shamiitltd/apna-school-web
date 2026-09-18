@@ -2,7 +2,9 @@ import { NavBar } from "./components/NavBar"
 import { Home } from "./pages/Home"
 import { Features } from "./pages/Features"
 import { HowItWorks } from "./pages/HowItWorks"
+import { FAQ } from "./pages/FAQ"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+
 
 function Placeholder({title}) {
   return (
@@ -19,6 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/features" element={<Features />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="/faq" element={<FAQ />} />
       </Routes>
     </BrowserRouter>
   )
