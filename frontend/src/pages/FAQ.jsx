@@ -151,7 +151,7 @@ export const FAQ = () => {
           </section>
         </div>
 
-        <section className="relative min-h-[280px] w-full overflow-hidden">
+        <section className="relative min-h-70 w-full overflow-hidden">
           <div className="relative z-10 mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10">
             <h2 className="max-w-md text-3xl font-bold leading-tight text-[#071d55] sm:text-4xl">
               Still have questions?

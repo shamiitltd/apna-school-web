@@ -2,7 +2,8 @@ import { NavBar } from "./components/NavBar"
 import { Home } from "./pages/Home"
 import { Features } from "./pages/Features"
 import { HowItWorks } from "./pages/HowItWorks"
-import { FAQ } from "./pages/FAQ"
+import { Blog } from "./pages/Blog"
+import { Contact } from "./pages/Contact"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 
@@ -21,7 +22,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/features" element={<Features />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
-        <Route path="/faq" element={<FAQ />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
   )

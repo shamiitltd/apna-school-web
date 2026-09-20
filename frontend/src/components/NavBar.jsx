@@ -66,7 +66,7 @@ export const NavBar = () => {
             Pricing
           </NavLink>
           <NavLink
-            to="/faq"
+            to="/blog"
             className={({ isActive }) =>
               `border-b-2 px-3 py-2 text-sm font-semibold ${
                 isActive
@@ -75,7 +75,7 @@ export const NavBar = () => {
               }`
             }
           >
-            FAQ
+            Blog
           </NavLink>
           <NavLink
             to="/contact"
@@ -167,11 +167,11 @@ export const NavBar = () => {
             Pricing
           </NavLink>
           <NavLink
-            to="/faq"
+            to="/blog"
             onClick={() => setMenuOpen(false)}
             className="rounded-lg px-4 py-3 font-semibold text-slate-700 hover:bg-sky-50"
           >
-            FAQ
+            Blog
           </NavLink>
           <NavLink
             to="/contact"
