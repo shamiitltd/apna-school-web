@@ -46,6 +46,7 @@ export const Contact = () => {
           />
         </div>
       </section>
+      
       <section className="flex mt-4 mb-6 mx-auto w-full max-w-9xl flex-col gap-6 px-5 sm:px-10 lg:flex-row lg:px-14">
         <div className="flex-1 rounded-xl border border-slate-100 bg-white p-5 shadow-sm">
           <div className="mb-5 flex items-center gap-3">
