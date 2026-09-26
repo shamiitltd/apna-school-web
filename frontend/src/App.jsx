@@ -9,6 +9,8 @@ import { AdminLogin } from "./pages/admin/AdminLogin";
 import { AdminProtectedRoute } from "./components/admin/AdminProtectedRoute";
 import { AdminLayout } from "./components/admin/AdminLayout";
 import { BlogManagement } from "./pages/admin/BlogManagement";
+import { CreateBlog } from "./pages/admin/CreateBlog";
+import { AdminDashboard } from "./pages/admin/AdminDashboard";
 
 function PublicLayout() {
   return (
@@ -38,10 +40,11 @@ function App() {
         {/* Protected Admin Routes (Protected by Master Password / Token) */}
         <Route element={<AdminProtectedRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<Navigate to="/admin/blogs" replace />} />
-            <Route path="dashboard" element={<Navigate to="/admin/blogs" replace />} />
+            <Route index element={<AdminDashboard />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
             <Route path="blogs" element={<BlogManagement />} />
-            <Route path="create-blog" element={<BlogManagement />} />
+            <Route path="create-blog" element={<CreateBlog />} />
+            <Route path="edit-blog/:id" element={<CreateBlog />} />
             <Route path="media" element={<BlogManagement />} />
             <Route path="analytics" element={<BlogManagement />} />
             <Route path="subscribers" element={<BlogManagement />} />

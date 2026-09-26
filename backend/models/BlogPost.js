@@ -67,6 +67,15 @@ const blogPostSchema = new mongoose.Schema(
             type: Number,
             default: 0,
         },
+        likes: {
+            type: Number,
+            default: 0,
+        },
+        status: {
+            type: String,
+            enum: ["Published", "Draft", "Scheduled"],
+            default: "Published",
+        },
     },
     {
         timestamps: true,

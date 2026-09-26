@@ -3,12 +3,12 @@ import { AdminSidebar } from "./AdminSidebar";
 
 export const AdminLayout = () => {
   return (
-    <div className="flex min-h-screen bg-[#f8fbff] text-slate-900 font-sans">
-      {/* Sidebar */}
+    <div className="flex h-screen w-full overflow-hidden bg-[#f8fbff] text-slate-900 font-sans">
+      {/* Fixed Sticky Sidebar */}
       <AdminSidebar />
 
-      {/* Main Content Area */}
-      <main className="flex-1 min-w-0 p-6 sm:p-8 lg:p-10 overflow-y-auto">
+      {/* Independently Scrollable Main Content */}
+      <main className="flex-1 min-w-0 h-full overflow-y-auto p-6 sm:p-8 lg:p-10">
         <Outlet />
       </main>
     </div>
