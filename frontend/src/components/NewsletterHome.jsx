@@ -1,13 +1,55 @@
 import { useState } from "react";
+import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 
 export const NewsletterHome = () => {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email) {
-      alert(`Subscribed with: ${email}`);
-      setEmail("");
+    setSuccess("");
+
+    const trimmedEmail = email.trim();
+
+    if (!trimmedEmail) {
+      setError("Please enter your email address to subscribe.");
+      return;
+    }
+
+    if (!emailRegex.test(trimmedEmail)) {
+      setError("Please enter a valid email address (e.g. principal@school.com).");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      setError("");
+
+      const res = await fetch(`${API_URL}/subscriber`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmedEmail }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setEmail("");
+        setSuccess("🎉 Thank you for subscribing! You'll receive our newest updates.");
+      } else {
+        setError(data.message || "Unable to subscribe. Please try again.");
+      }
+    } catch (err) {
+      console.error("Subscription error:", err);
+      setError("Server connection issue. Please ensure the backend is running.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,38 +84,75 @@ export const NewsletterHome = () => {
             </div>
           </div>
 
-          {/* Right Side: Subscription Form with Sparkles */}
+          {/* Right Side: Subscription Form with Styled Custom Validation Error */}
           <form
+            noValidate
             onSubmit={handleSubmit}
             className="flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-start lg:w-auto"
           >
-            <div className="flex flex-col">
+            <div className="flex flex-col w-full sm:w-auto">
               <input
                 type="email"
-                required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (error) setError("");
+                  if (success) setSuccess("");
+                }}
                 placeholder="Enter your email address"
-                className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-xs text-slate-800 placeholder:text-slate-400 shadow-xs focus:border-[#009e52] focus:outline-none focus:ring-1 focus:ring-[#009e52] sm:w-64 sm:text-sm md:w-72 lg:w-80"
+                className={`w-full rounded-2xl border bg-white px-4 py-3 text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 shadow-xs transition-colors focus:outline-none sm:w-64 md:w-72 lg:w-80 ${
+                  error
+                    ? "border-red-400 text-red-950 focus:border-red-500 focus:ring-2 focus:ring-red-200/50"
+                    : "border-slate-200 focus:border-[#009e52] focus:ring-1 focus:ring-[#009e52]"
+                }`}
               />
-              <span className="mt-1.5 pl-1 text-[11px] text-slate-500">
-                No spam. Only important updates.
-              </span>
+
+              {/* Styled Inline Error Message */}
+              {error && (
+                <div className="mt-1.5 flex items-center gap-1.5 pl-1 text-[11px] font-semibold text-red-600 animate-in fade-in slide-in-from-top-1">
+                  <AlertCircle className="h-3.5 w-3.5 shrink-0 text-red-500" />
+                  <span>{error}</span>
+                </div>
+              )}
+
+              {/* Styled Inline Success Confirmation */}
+              {success && (
+                <div className="mt-1.5 flex items-center gap-1.5 pl-1 text-[11px] font-bold text-emerald-700 animate-in fade-in slide-in-from-top-1">
+                  <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
+                  <span>{success}</span>
+                </div>
+              )}
+
+              {!error && !success && (
+                <span className="mt-1.5 pl-1 text-[11px] text-slate-500 font-medium">
+                  No spam. Only important updates.
+                </span>
+              )}
             </div>
 
             <div className="relative shrink-0">
               <button
                 type="submit"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#009e52] px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#008745] active:scale-95 sm:w-auto sm:text-base cursor-pointer"
+                disabled={loading}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#009e52] px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#008745] active:scale-95 disabled:opacity-70 sm:w-auto sm:text-base cursor-pointer"
               >
-                <svg
-                  className="h-4 w-4 fill-current text-white shrink-0"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                </svg>
-                Subscribe
+                {loading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin text-white shrink-0" />
+                    <span>Subscribing...</span>
+                  </>
+                ) : (
+                  <>
+                    <svg
+                      className="h-4 w-4 fill-current text-white shrink-0"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                    </svg>
+                    <span>Subscribe</span>
+                  </>
+                )}
               </button>
 
               <div

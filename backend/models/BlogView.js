@@ -10,7 +10,6 @@ const blogViewSchema = new mongoose.Schema(
     viewedAt: {
       type: Date,
       default: Date.now,
-      index: true,
     },
     referrer: {
       type: String,

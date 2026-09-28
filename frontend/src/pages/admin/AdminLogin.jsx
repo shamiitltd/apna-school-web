@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Lock, Eye, EyeOff, AlertCircle, Loader2, ArrowRight } from "lucide-react";
 import logo from "../../assets/logo.png";
+import { SEOHead } from "../../components/SEOHead";
 
 export const AdminLogin = () => {
   const [password, setPassword] = useState("");
@@ -36,7 +37,7 @@ export const AdminLogin = () => {
 
       if (data.success && data.token) {
         localStorage.setItem("adminToken", data.token);
-        navigate("/admin/blogs");
+        navigate("/admin/dashboard");
       } else {
         setError(data.message || "Invalid password. Please try again.");
       }
@@ -49,7 +50,13 @@ export const AdminLogin = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#f0f8ff] flex items-center justify-center px-4 py-12 relative overflow-hidden">
+    <>
+      <SEOHead
+        title="Admin Login Portal"
+        description="Private administrative login for Apna School management."
+        noIndex={true}
+      />
+      <div className="min-h-screen w-full bg-[#f0f8ff] flex items-center justify-center px-4 py-12 relative overflow-hidden">
       {/* Background Decorative Gradient Blobs */}
       <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-200/50 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-200/40 rounded-full blur-3xl pointer-events-none" />
@@ -139,5 +146,7 @@ export const AdminLogin = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
+

@@ -1,0 +1,27 @@
+# robots.txt for Apna School (https://apnaschool.in)
+User-agent: *
+Allow: /
+Allow: /features
+Allow: /how-it-works
+Allow: /pricing
+Allow: /about
+Allow: /mission
+Allow: /careers
+Allow: /help-center
+Allow: /video-tutorials
+Allow: /updates
+Allow: /faq
+Allow: /privacy
+Allow: /refund
+Allow: /blog
+Allow: /blog/*
+Allow: /contact
+
+# Disallow Private & Admin CMS Application Routes
+Disallow: /admin/
+Disallow: /admin/*
+Disallow: /api/
+Disallow: /api/*
+
+# XML Sitemap
+Sitemap: https://apnaschool.in/sitemap.xml

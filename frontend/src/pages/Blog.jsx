@@ -3,6 +3,9 @@ import cloud_bg from "../assets/howitworks_hero.png";
 import heroImg from "../assets/hero-avatar-blog.png";
 import { FaArrowRight, FaSearch } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { SEOHead } from "../components/SEOHead";
+import { getBreadcrumbsSchema } from "../utils/seoSchemas";
 import { BsGridFill } from "react-icons/bs";
 import {
   Layers,
@@ -218,38 +221,59 @@ export const Blog = () => {
 
   const visiblePosts = blogs.slice(0, visibleCount);
 
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+  ];
+
+  const canonicalCategory = activeCategory && activeCategory !== "All Posts" 
+    ? `https://apnaschool.in/blog?category=${encodeURIComponent(activeCategory)}`
+    : "https://apnaschool.in/blog";
+
   return (
     <>
+      <SEOHead
+        title={activeCategory && activeCategory !== "All Posts" ? `${activeCategory} Articles & Guides` : "Blog | School Management Insights & Educational Guides"}
+        description="Discover expert school management insights, practical productivity tips, attendance best practices, and educational guides for administrators, teachers, and parents."
+        canonicalUrl={canonicalCategory}
+        structuredData={getBreadcrumbsSchema(breadcrumbs)}
+      />
+
       {/* Hero Section */}
-      <section className="relative isolate min-h-112 w-full overflow-hidden bg-[#f0f8ff] px-5 pt-10 sm:px-10 lg:px-14">
+      <section className="relative isolate w-full overflow-hidden bg-[#f0f8ff] px-5 pt-8 pb-0 sm:px-10 sm:pt-10 lg:px-14 lg:pt-10">
         <img
           src={cloud_bg}
           alt=""
           className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover object-[70%_center]"
         />
-        <div className="relative z-10 mx-auto flex max-w-10xl items-start justify-between">
-          <div className="pt-6 max-w-3xl sm:pt-10 lg:pt-14">
-            <p className="pb-4 text-sm font-semibold uppercase tracking-[0.18em] text-blue-600 sm:text-base">
+        <div className="relative z-10 mx-auto flex max-w-10xl flex-col items-center justify-between gap-8 lg:flex-row lg:items-end">
+          {/* Left Column: Heading & Subtitle */}
+          <div className="z-10 flex w-full max-w-2xl flex-col items-start text-left pb-6 sm:pb-10 lg:pb-12 pt-2 sm:pt-4">
+            <span className="inline-block rounded-full bg-blue-100 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-blue-600 sm:text-sm">
               Our Blog
-            </p>
-            <h1 className="text-4xl font-bold text-[#071d55] sm:text-5xl lg:text-5xl">
+            </span>
+            <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-[#071d55] sm:text-4xl lg:text-5xl leading-[1.15]">
               Ideas, Tips &amp; Stories
               <br />
               <span className="text-blue-600">
                 for a Brighter Learning Tomorrow
               </span>
             </h1>
-            <p className="mt-5 text-md max-w-xl text-slate-600 sm:text-lg lg:text-xl">
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-600 sm:text-base lg:text-lg">
               Explore expert tips, practical guides, and inspiring stories to
               help students, parents, and teachers make school management easier
               and learning more joyful.
             </p>
           </div>
-          <img
-            src={heroImg}
-            alt="Hero Avatar"
-            className="max-w-2xl pointer-events-none absolute hidden lg:block lg:h-94 lg:top-10 lg:right-8 xl-right-38"
-          />
+
+          {/* Right Column: Hero Mascot Avatar */}
+          <div className="z-10 flex w-full shrink-0 items-end justify-center lg:w-auto lg:self-end">
+            <img
+              src={heroImg}
+              alt="Apna School Student Learning"
+              className="h-[230px] sm:h-[290px] lg:h-[350px] xl:h-[390px] w-auto max-w-full lg:max-w-none object-contain object-bottom"
+            />
+          </div>
         </div>
       </section>
 
@@ -291,9 +315,11 @@ export const Blog = () => {
                     <p className="bg-[#fef1c9] py-1.5 px-4 text-xs font-bold text-amber-800 w-fit flex justify-center rounded-full">
                       Featured
                     </p>
-                    <h1 className="mt-4 text-2xl font-bold text-[#071d55] sm:text-3xl lg:text-4xl">
-                      {featuredBlog.title}
-                    </h1>
+                    <h2 className="mt-4 text-2xl font-bold text-[#071d55] sm:text-3xl lg:text-4xl">
+                      <Link to={`/blog/${featuredBlog._id}`} className="hover:text-blue-600 transition">
+                        {featuredBlog.title}
+                      </Link>
+                    </h2>
                     <p className="text-slate-700 text-sm sm:text-base mt-3 leading-relaxed">
                       {featuredBlog.description}
                     </p>
@@ -308,22 +334,27 @@ export const Blog = () => {
                           By {featuredBlog.author?.name || "Admin"}
                         </h4>
                         <p className="text-xs text-slate-500">
-                          {featuredBlog.author?.publishedAt || "Aug 2024"} |{" "}
+                          {featuredBlog.author?.publishedAt || (featuredBlog.createdAt ? new Date(featuredBlog.createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" }) : new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" }))} |{" "}
                           {featuredBlog.author?.readTime || 4} min read
                         </p>
                       </div>
                     </div>
-                    <button className="flex items-center justify-center gap-2 mt-6 font-bold text-sky-700 hover:text-sky-800 cursor-pointer">
+                    <Link
+                      to={`/blog/${featuredBlog._id}`}
+                      className="inline-flex items-center justify-center gap-2 mt-6 font-bold text-sky-700 hover:text-sky-800 cursor-pointer"
+                    >
                       <div>Read More</div>
                       <FaArrowRight />
-                    </button>
+                    </Link>
                   </div>
                   <div className="w-full lg:w-5/12 flex justify-center shrink-0">
-                    <img
-                      src={featuredBlog.image || heroImg}
-                      alt={featuredBlog.title}
-                      className="max-h-64 sm:max-h-72 w-auto object-contain"
-                    />
+                    <Link to={`/blog/${featuredBlog._id}`}>
+                      <img
+                        src={featuredBlog.image || heroImg}
+                        alt={featuredBlog.title}
+                        className="max-h-64 sm:max-h-72 w-auto object-contain hover:scale-105 transition duration-300"
+                      />
+                    </Link>
                   </div>
                 </div>
               )}
@@ -346,7 +377,10 @@ export const Blog = () => {
                         className="group flex flex-col bg-white rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1"
                       >
                         {/* Card Image */}
-                        <div className="relative h-48 w-full overflow-hidden bg-slate-100 flex items-center justify-center p-4">
+                        <Link
+                          to={`/blog/${item._id}`}
+                          className="relative h-48 w-full overflow-hidden bg-slate-100 flex items-center justify-center p-4 block"
+                        >
                           <img
                             src={item.image || heroImg}
                             alt={item.title}
@@ -355,13 +389,15 @@ export const Blog = () => {
                           <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-blue-700 text-xs font-semibold px-3 py-1 rounded-full shadow-2xs border border-blue-100">
                             {item.category}
                           </span>
-                        </div>
+                        </Link>
 
                         {/* Card Body */}
                         <div className="flex flex-col flex-1 p-5 sm:p-6 justify-between">
                           <div>
                             <h2 className="text-lg font-bold text-[#071d55] group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
-                              {item.title}
+                              <Link to={`/blog/${item._id}`}>
+                                {item.title}
+                              </Link>
                             </h2>
                             <p className="mt-2 text-sm text-slate-600 line-clamp-2 leading-relaxed">
                               {item.description}
@@ -379,15 +415,19 @@ export const Blog = () => {
                                   {item.author?.name || "Admin"}
                                 </span>
                                 <span className="text-[11px] text-slate-400">
-                                  {item.author?.publishedAt || "Aug 2024"} ·{" "}
+                                  {item.author?.publishedAt || (item.createdAt ? new Date(item.createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" }) : new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" }))} ·{" "}
                                   {item.author?.readTime || 4} min read
                                 </span>
                               </div>
                             </div>
 
-                            <button className="text-blue-600 hover:text-blue-800 p-1.5 rounded-full hover:bg-blue-50 transition-colors cursor-pointer">
+                            <Link
+                              to={`/blog/${item._id}`}
+                              aria-label={`Read article: ${item.title}`}
+                              className="text-blue-600 hover:text-blue-800 p-1.5 rounded-full hover:bg-blue-50 transition-colors cursor-pointer"
+                            >
                               <FaArrowRight className="w-3.5 h-3.5" />
-                            </button>
+                            </Link>
                           </div>
                         </div>
                       </article>
@@ -520,9 +560,10 @@ export const Blog = () => {
                 {popularBlogs.length > 0 ? (
                   popularBlogs.map((item, key) => {
                     return (
-                      <article
+                      <Link
                         key={item._id || key}
-                        className="group flex items-center gap-3.5 cursor-pointer"
+                        to={`/blog/${item._id}`}
+                        className="group flex items-center gap-3.5 cursor-pointer block"
                       >
                         {/* Thumbnail */}
                         <div className="w-16 h-16 rounded-2xl overflow-hidden bg-slate-100 shrink-0 border border-slate-100">
@@ -538,10 +579,10 @@ export const Blog = () => {
                             {item.title}
                           </h4>
                           <span className="text-xs text-slate-400 font-medium mt-1 block">
-                            {item.author?.publishedAt || "Aug 2024"}
+                            {item.author?.publishedAt || (item.createdAt ? new Date(item.createdAt).toLocaleDateString("en-US", { month: "short", year: "numeric" }) : new Date().toLocaleDateString("en-US", { month: "short", year: "numeric" }))}
                           </span>
                         </div>
-                      </article>
+                      </Link>
                     );
                   })
                 ) : (

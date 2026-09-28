@@ -11,18 +11,37 @@ import {
 import { FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Footer } from "../components/Footer";
+import { SEOHead } from "../components/SEOHead";
+import { getOrganizationSchema, getBreadcrumbsSchema } from "../utils/seoSchemas";
 
 export const Contact = () => {
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "Contact", url: "/contact" },
+  ];
+
+  const structuredData = [
+    getOrganizationSchema(),
+    getBreadcrumbsSchema(breadcrumbs),
+  ];
+
   return (
     <>
+      <SEOHead
+        title="Contact Us | Support, Sales & Product Assistance"
+        description="Get in touch with the Apna School team. Contact us for product inquiries, live software demos, account setup assistance, and technical customer support."
+        canonicalUrl="https://apnaschool.in/contact"
+        structuredData={structuredData}
+      />
       <section className="relative isolate min-h-112 w-full overflow-hidden bg-[#f0f8ff] px-5 pt-10 sm:px-10 lg:px-14">
+
         <img
           src={cloud_bg}
           alt=""
           className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover object-[70%_center]"
         />
 
-        <div className="relative z-10 mx-auto px-5 flex max-w-10xl items-start justify-between">
+        <div className="relative z-10 mx-auto px-5 flex max-w-10xl flex-col sm:flex-row items-center sm:items-start justify-between gap-6 pb-6 sm:pb-0">
           <div className="max-w-2xl pt-6 sm:pt-10 lg:pt-14">
             <p className="pb-4 text-sm font-semibold uppercase tracking-[0.18em] text-blue-600 sm:text-base">
               Contact
@@ -39,11 +58,13 @@ export const Contact = () => {
             </p>
           </div>
 
-          <img
-            src={avatar}
-            alt="Apna School support representative"
-            className="pointer-events-none absolute -right-10 top-12 hidden h-56 w-auto object-contain sm:block lg:right-8 lg:top-20 lg:h-84 xl:right-38"
-          />
+          <div className="flex shrink-0 justify-center sm:block">
+            <img
+              src={avatar}
+              alt="Apna School support representative"
+              className="h-44 sm:h-56 lg:h-84 xl:h-92 w-auto object-contain object-bottom sm:absolute sm:-right-10 sm:top-12 lg:right-8 lg:top-20 xl:right-38"
+            />
+          </div>
         </div>
       </section>
       

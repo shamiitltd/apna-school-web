@@ -4,6 +4,8 @@ import faqBackground from "../assets/howitworks_hero.png";
 import booksFaq from "../assets/books_faq.png";
 import textFaq from "../assets/text-faq.png";
 import { Footer } from "../components/Footer";
+import { SEOHead } from "../components/SEOHead";
+import { getFAQPageSchema, getBreadcrumbsSchema } from "../utils/seoSchemas";
 
 export const FAQ = () => {
   const questions = [
@@ -51,9 +53,26 @@ export const FAQ = () => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const breadcrumbs = [
+    { name: "Home", url: "/" },
+    { name: "FAQ", url: "/faq" },
+  ];
+
+  const structuredData = [
+    getFAQPageSchema(questions),
+    getBreadcrumbsSchema(breadcrumbs),
+  ];
+
   return (
     <>
+      <SEOHead
+        title="Frequently Asked Questions (FAQ) | School Management Software"
+        description="Have questions about Apna School? Find answers regarding features, cloud security, parent access, fee receipt generation, export capabilities, and customer support."
+        canonicalUrl="https://apnaschool.in/faq"
+        structuredData={structuredData}
+      />
       <main className="relative min-h-screen overflow-x-hidden bg-[#effaff]">
+
         <img
           src={faqBackground}
           alt=""

@@ -79,11 +79,11 @@ export const HowItWorksHero = () => {
         </div>
 
         {/* Right Column: Boy Avatar Touching Bottom and Positioned on top of background */}
-        <div className="z-10 flex w-full pr-12 sm:pr-24 lg:pr-36 xl:pr-42 shrink-0 items-end justify-center lg:w-auto lg:-ml-6 xl:-ml-12 lg:self-end">
+        <div className="z-10 flex w-full pr-0 sm:pr-8 lg:pr-36 xl:pr-42 shrink-0 items-end justify-center lg:w-auto lg:-ml-6 xl:-ml-12 lg:self-end">
           <img
             src={boyAvatar}
             alt="Student using tablet"
-            className="h-[300px] sm:h-[350px] lg:h-[380px] xl:h-[410px] w-auto max-w-none object-contain object-bottom"
+            className="h-[260px] sm:h-[320px] lg:h-[380px] xl:h-[410px] w-auto max-w-none object-contain object-bottom"
           />
         </div>
       </div>

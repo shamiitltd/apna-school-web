@@ -337,9 +337,9 @@ export const BlogManagement = () => {
       </div>
 
       {/* ================= 3. FILTER & SEARCH BAR ROW ================= */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         {/* Search Input */}
-        <div className="relative flex-1 min-w-[260px] max-w-md">
+        <div className="relative w-full sm:max-w-md">
           <Search className="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
@@ -349,21 +349,21 @@ export const BlogManagement = () => {
               setSearchQuery(e.target.value);
               setCurrentPage(1);
             }}
-            className="w-full pl-11 pr-4 py-3 bg-white border border-slate-200/90 rounded-2xl text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 shadow-2xs"
+            className="w-full pl-11 pr-4 py-2.5 sm:py-3 bg-white border border-slate-200/90 rounded-2xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 shadow-2xs"
           />
         </div>
 
         {/* Filters Group */}
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
           {/* Category Dropdown */}
-          <div className="relative">
+          <div className="relative w-full sm:w-auto">
             <select
               value={selectedCategory}
               onChange={(e) => {
                 setSelectedCategory(e.target.value);
                 setCurrentPage(1);
               }}
-              className="appearance-none bg-white border border-slate-200/90 pl-4 pr-10 py-3 rounded-2xl text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer shadow-2xs"
+              className="w-full appearance-none bg-white border border-slate-200/90 pl-3.5 pr-8 sm:pl-4 sm:pr-10 py-2.5 sm:py-3 rounded-2xl text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer shadow-2xs truncate"
             >
               {categories.map((cat) => (
                 <option key={cat} value={cat}>
@@ -371,43 +371,43 @@ export const BlogManagement = () => {
                 </option>
               ))}
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
           </div>
 
           {/* Status Dropdown */}
-          <div className="relative">
+          <div className="relative w-full sm:w-auto">
             <select
               value={selectedStatus}
               onChange={(e) => {
                 setSelectedStatus(e.target.value);
                 setCurrentPage(1);
               }}
-              className="appearance-none bg-white border border-slate-200/90 pl-4 pr-10 py-3 rounded-2xl text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer shadow-2xs"
+              className="w-full appearance-none bg-white border border-slate-200/90 pl-3.5 pr-8 sm:pl-4 sm:pr-10 py-2.5 sm:py-3 rounded-2xl text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer shadow-2xs"
             >
               <option value="All Status">All Status</option>
               <option value="Published">Published</option>
               <option value="Draft">Draft</option>
               <option value="Scheduled">Scheduled</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
           </div>
 
           {/* Sort Dropdown */}
-          <div className="relative">
+          <div className="relative col-span-2 sm:col-span-1 w-full sm:w-auto">
             <select
               value={sortBy}
               onChange={(e) => {
                 setSortBy(e.target.value);
                 setCurrentPage(1);
               }}
-              className="appearance-none bg-white border border-slate-200/90 pl-4 pr-10 py-3 rounded-2xl text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer shadow-2xs"
+              className="w-full appearance-none bg-white border border-slate-200/90 pl-3.5 pr-8 sm:pl-4 sm:pr-10 py-2.5 sm:py-3 rounded-2xl text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer shadow-2xs"
             >
               <option value="Latest">Sort by: Latest</option>
               <option value="Most Viewed">Sort by: Most Viewed</option>
               <option value="Most Liked">Sort by: Most Liked</option>
               <option value="Oldest">Sort by: Oldest</option>
             </select>
-            <ChevronDown className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+            <ChevronDown className="w-4 h-4 absolute right-2.5 sm:right-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
           </div>
         </div>
       </div>
@@ -575,7 +575,7 @@ export const BlogManagement = () => {
                       {/* Date */}
                       <td className="py-4 px-4">
                         <div className="text-xs font-bold text-slate-700">
-                          {blog.author?.publishedAt || "Aug 20, 2024"}
+                          {blog.author?.publishedAt || (blog.createdAt ? new Date(blog.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }))}
                         </div>
                         <div className="text-[11px] text-slate-400">
                           {blog.author?.readTime || 5} min read

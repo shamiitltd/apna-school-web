@@ -1,14 +1,21 @@
 import avatar from "../assets/avatar.png";
 import featureHeroBg from "../assets/feature_hero.png";
+import cloudBg from "../assets/howitworks_hero.png";
 
 export const FeatureHero = () => {
   return (
     <section className="relative isolate w-full overflow-hidden bg-[#f0f8ff] px-5 pt-8 pb-0 sm:px-10 sm:pt-10 lg:px-14 lg:pt-10">
-      {/* Background Graphic Image */}
+      {/* Desktop Background Graphic Image */}
       <img
         src={featureHeroBg}
         alt=""
-        className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover object-[75%_center] sm:object-right"
+        className="pointer-events-none hidden md:block absolute inset-0 -z-10 h-full w-full object-cover object-[75%_center] sm:object-right"
+      />
+      {/* Mobile & Small Screens Cloud Background */}
+      <img
+        src={cloudBg}
+        alt=""
+        className="pointer-events-none block md:hidden absolute inset-0 -z-10 h-full w-full object-cover object-[75%_center]"
       />
 
       <div className="mx-auto flex max-w-10xl flex-col items-center justify-between gap-8 lg:flex-row lg:items-end lg:gap-8">
@@ -79,11 +86,11 @@ export const FeatureHero = () => {
         </div>
 
         {/* Right Column: Avatar Touching Bottom and Positioned closer to Left */}
-        <div className="z-10 flex w-full pr-42 shrink-0 items-end justify-center lg:w-auto lg:-ml-6 xl:-ml-12 lg:self-end">
+        <div className="z-10 flex w-full pr-0 shrink-0 items-end justify-center lg:w-auto lg:pr-36 xl:pr-42 lg:-ml-6 xl:-ml-12 lg:self-end">
           <img
             src={avatar}
             alt="Teacher with tablet"
-            className="h-[300px] sm:h-[350px] lg:h-[380px] xl:h-[410px] w-auto max-w-none object-contain object-bottom"
+            className="h-[260px] sm:h-[320px] lg:h-[380px] xl:h-[410px] w-auto max-w-none object-contain object-bottom"
           />
         </div>
       </div>

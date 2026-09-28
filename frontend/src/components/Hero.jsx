@@ -1,23 +1,32 @@
 import hero from "../assets/hero_bg.png"
+import cloudBg from "../assets/howitworks_hero.png"
 
 export const Hero = () => {
     return (
         <>
-            <section className="relative isolate h-[calc(100svh-5rem)] min-h-130 overflow-hidden bg-sky-50 lg:min-h-0">
+            <section className="relative isolate min-h-[calc(100svh-5rem)] min-h-[520px] sm:min-h-[550px] md:min-h-[570px] lg:min-h-[600px] xl:min-h-[630px] flex items-center overflow-hidden bg-sky-50">
+                {/* Desktop Hero Campus Image */}
                 <img
                     src={hero}
                     alt="A bright school campus with trees and a garden"
-                    className="absolute inset-0 -z-10 h-full w-full object-cover object-[62%_center] sm:object-center"
+                    className="hidden md:block absolute inset-0 -z-10 h-full w-full object-cover object-[78%_center] lg:object-[82%_center] xl:object-[85%_center] 2xl:object-right"
                 />
-                <div className="mx-auto flex h-full max-w-10xl items-center px-5 py-8 sm:px-10 lg:px-14 lg:py-4">
-                    <div className="w-full max-w-xl rounded-3xl bg-white/65 p-6 backdrop-blur-[2px] sm:bg-transparent sm:p-0 sm:backdrop-blur-0">
+
+                {/* Mobile & Small Screens Cloud Background */}
+                <img
+                    src={cloudBg}
+                    alt=""
+                    className="block md:hidden pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover object-[70%_center]"
+                />
+                <div className="mx-auto flex h-full w-full max-w-10xl items-center px-5 py-6 sm:px-10 lg:px-14 lg:py-4">
+                    <div className="w-full max-w-md lg:max-w-lg xl:max-w-xl rounded-3xl bg-white/75 p-6 backdrop-blur-[2px] sm:bg-white/60 md:bg-transparent md:p-0 md:backdrop-blur-0 shadow-sm md:shadow-none border border-sky-100/60 md:border-none">
                     <p className="mb-3 inline-flex rounded-full bg-emerald-100 px-4 py-1.5 text-sm font-bold text-emerald-700">
                         Simple - Affordable - Your Data, Your Control
                     </p>
-                    <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight text-slate-950 sm:text-5xl lg:text-[3.4rem]">
+                    <h1 className="text-3xl font-extrabold leading-[1.08] tracking-tight text-slate-950 sm:text-4xl lg:text-[2.85rem] xl:text-[3.2rem]">
                         The Digital School <span className="text-blue-600">Register</span> for Every Small School
                     </h1>
-                    <p className="mt-4 max-w-lg text-base leading-6 text-slate-700 sm:text-lg lg:text-base">
+                    <p className="mt-3.5 max-w-md lg:max-w-lg text-sm leading-relaxed text-slate-700 sm:text-base">
                         Apna School is a lightweight school management app for small and local schools (100-1,000 students). Manage students, fees, attendance, exams, parents and more - all in one simple mobile app, with your data stored in your own Google Drive.
                     </p>
                     <ul className="mt-4 space-y-2 text-sm font-medium text-slate-700 sm:text-base lg:text-sm">
